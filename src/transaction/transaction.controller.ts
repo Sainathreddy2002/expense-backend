@@ -9,10 +9,10 @@ import {
   Query,
 } from '@nestjs/common';
 import { TransactionService } from './transaction.service';
-import { Prisma } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateTransactionDTO } from './dto/create-transaction.dto';
 import { Public } from 'src/auth/SkipAuth';
+import { UpdateTransactionDto } from './dto/update-transaction.dto';
 
 @ApiTags('transaction')
 @Controller('transaction')
@@ -39,12 +39,9 @@ export class TransactionController {
     return this.transactionService.findUserTransactions(+userId);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateTransactionDto: Prisma.TransactionUpdateInput,
-  ) {
-    return this.transactionService.update(+id, updateTransactionDto);
+  @Patch()
+  update(@Body() updateTransactionDto: UpdateTransactionDto) {
+    return this.transactionService.update(updateTransactionDto);
   }
 
   @Delete(':id')

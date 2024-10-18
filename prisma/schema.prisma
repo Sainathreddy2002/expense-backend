@@ -33,7 +33,8 @@ enum TRANSACTION_TYPE{
 
 model Transaction{
   id Int  @id @default(autoincrement())
-  amount Float 
+  amount Float
+  name String
   date DateTime 
   updatedAt DateTime @updatedAt
   type  TRANSACTION_TYPE

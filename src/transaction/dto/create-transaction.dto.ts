@@ -3,6 +3,13 @@ import { Prisma, TRANSACTION_TYPE } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
 export class CreateTransactionDTO implements Prisma.TransactionCreateInput {
   @ApiProperty({
+    example: 'Transaction Name',
+    description: 'Name of the transaction',
+  })
+  @IsNotEmpty()
+  @IsString()
+  name: string;
+  @ApiProperty({
     example: 150.75,
     description: 'The amount of the transaction',
   })
