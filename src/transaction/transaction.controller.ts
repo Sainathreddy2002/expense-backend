@@ -13,6 +13,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { CreateTransactionDTO } from './dto/create-transaction.dto';
 import { Public } from 'src/auth/SkipAuth';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { FilteredTransactions } from './dto/get-filtered-transactions.dto';
 
 @ApiTags('transaction')
 @Controller('transaction')
@@ -32,7 +33,7 @@ export class TransactionController {
   findOne(@Param('id') id: string) {
     return this.transactionService.findOne(+id);
   }
-  @Public()
+
   @Get(':userId')
   findUserTransactions(@Query('userId') userId: string) {
     console.log(userId);
@@ -47,5 +48,24 @@ export class TransactionController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.transactionService.remove(+id);
+  }
+  //Search and pagination for user transactions
+  @Post('getFilteredTransactions')
+  getFilteredTransactions(@Body() filteredTransactions: FilteredTransactions) {
+    return this.transactionService.getFilteredTransaction(filteredTransactions);
+  }
+  //Find net of income ,expenses
+  @Get('netTransactions/:id/:month')
+  getNetValue(@Param('id') id: string, @Param('month') month: string) {
+    return this.transactionService.getNetValue(+id, month);
+  }
+  //Dashboard data by month
+  @Public()
+  @Get('dashboard/:id/:month')
+  getDashboardDataByMonth(
+    @Param('id') id: string,
+    @Param('month') month: string,
+  ) {
+    return this.transactionService.getDashboardDataByMonth(+id, month);
   }
 }
