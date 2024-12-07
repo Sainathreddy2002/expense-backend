@@ -55,4 +55,7 @@ model Categories{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   isDefault Boolean? @default(false)
+  deletedAt DateTime?
+  @@unique([userId,name])
+  @@index([userId])
 }

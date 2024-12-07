@@ -166,13 +166,6 @@ export class TransactionService {
         amount: true, // Sum the amount for each group
       },
     });
-    // const modifiedData = transactions?.map((item) => {
-    //   return {
-    //     name: dayjs(item?.date).format('MMM DD'),
-    //     expense: item.type === TRANSACTION_TYPE.EXPENSE ? item? : 0,
-    //     income: item.type === TRANSACTION_TYPE.INCOME ? item?.amount : 0,
-    //   };
-    // });
     const results = transactions.reduce((acc, transaction) => {
       const date = dayjs(transaction.date).format('MMM DD');
 
